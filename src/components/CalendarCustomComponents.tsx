@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
   whiteBG: {
     backgroundColor: "white",
   },
+  darkBG: {
+    backgroundColor: "gray",
+  },
   appointmentBackground: {
     backgroundColor: "#FBF1CC",
     border: "none",
@@ -173,6 +176,40 @@ export const TimeTableCellComponent = ({ ...props }) => {
         <WeekView.TimeTableCell {...props} className={classes.whiteBG} />
       ) : (
         <WeekView.TimeTableCell {...props} className={classes.background} />
+      )}
+    </>
+  );
+};
+
+export const DayScaleCellComponentDark: React.FC<
+  WeekView.DayScaleCellProps & IComponentProps
+> = ({ ...props }) => {
+  const classes = useStyles({});
+  const { startDate } = props;
+  const date = new Date(startDate);
+
+  return (
+    <>
+      {date.getDate() === new Date().getDate() ? (
+        <WeekView.DayScaleCell {...props} className={classes.darkBG} />
+      ) : (
+        <WeekView.DayScaleCell {...props} />
+      )}
+    </>
+  );
+};
+
+export const TimeTableCellComponentDark = ({ ...props }) => {
+  const classes = useStyles({});
+  const { startDate } = props;
+  const date = new Date(startDate);
+
+  return (
+    <>
+      {date.getDate() === new Date().getDate() ? (
+        <WeekView.TimeTableCell {...props} className={classes.darkBG} />
+      ) : (
+        <WeekView.TimeTableCell {...props} />
       )}
     </>
   );

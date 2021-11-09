@@ -24,12 +24,10 @@ import {
   TimeScaleLayoutComponent,
   DayScaleCellComponent,
   TimeTableCellComponent,
+  TimeTableCellComponentDark,
+  DayScaleCellComponentDark,
 } from "./CalendarCustomComponents";
-import {
-  IAppointment,
-  IAddedAppointment,
-  IWeather,
-} from "../demo-data/data";
+import { IAppointment, IAddedAppointment, IWeather } from "../demo-data/data";
 import moment from "moment";
 import ClaudIcon from "@material-ui/icons/CloudOutlined";
 
@@ -41,7 +39,11 @@ interface ICalendar {
   themeType?: PaletteType;
 }
 
-const Calendar: React.FC<ICalendar> = ({ calendarData, weatherData, themeType }) => {
+const Calendar: React.FC<ICalendar> = ({
+  calendarData,
+  weatherData,
+  themeType,
+}) => {
   const [data, setData] = React.useState<IAppointment[]>(calendarData);
   const [today, setToday] = React.useState<number>();
 
@@ -111,9 +113,7 @@ const Calendar: React.FC<ICalendar> = ({ calendarData, weatherData, themeType })
     <>
       <div className="weather">
         <div
-          className={`${
-            themeType === "dark" ? "emptyCell dark" : "emptyCell light"
-          }`}
+          className={`emptyCell ${themeType === "dark" ? "dark" : "light"}`}
         ></div>
         <table className="weatherTable">
           <tbody>
@@ -122,14 +122,12 @@ const Calendar: React.FC<ICalendar> = ({ calendarData, weatherData, themeType })
                 i.day === today ? (
                   <td
                     className={`${
-                      themeType === "dark" ? "weatherCellDark" : "weatherCell"
+                      themeType === "dark" ? "weatherCell dark" : "weatherCell"
                     }`}
                   >
                     <span
-                      className={`${
-                        themeType === "dark"
-                          ? "weatherContent dark"
-                          : "weatherContent light"
+                      className={`weatherContent ${
+                        themeType === "dark" ? "dark" : "light"
                       }`}
                     >
                       {i.weather}{" "}
@@ -164,6 +162,8 @@ const Calendar: React.FC<ICalendar> = ({ calendarData, weatherData, themeType })
                   startDayHour={6.5}
                   endDayHour={19}
                   excludedDays={[0, 6]}
+                  dayScaleCellComponent={DayScaleCellComponentDark}
+                  timeTableCellComponent={TimeTableCellComponentDark}
                 />
               ) : (
                 <WeekView
@@ -193,10 +193,8 @@ const Calendar: React.FC<ICalendar> = ({ calendarData, weatherData, themeType })
         </MuiThemeProvider>
 
         <div
-          className={`${
-            themeType === "dark"
-              ? "calendarBottom dark"
-              : "calendarBottom light"
+          className={`calendarBottom ${
+            themeType === "dark" ? "dark" : "light"
           }`}
         ></div>
       </div>
