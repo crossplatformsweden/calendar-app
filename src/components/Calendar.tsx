@@ -15,6 +15,7 @@ import {
   CurrentTimeIndicator,
 } from "@devexpress/dx-react-scheduler-material-ui";
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
+import { PaletteType } from "@material-ui/core";
 import {
   IndicatorComponent,
   DayScaleEmptyCellComponent,
@@ -29,15 +30,20 @@ import {
   IAddedAppointment,
   weatherArray,
 } from "../demo-data/data";
-import appointments from "../demo-data/today-data";
 import moment from "moment";
 import ClaudIcon from "@material-ui/icons/CloudOutlined";
 import nav from "../assets/nav.png";
 import act from "../assets/act.png";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import "./Calendar.css";
 
-const Calendar: React.FC = () => {
-  const [data, setData] = React.useState<IAppointment[]>(appointments);
+interface ICalendar {
+  calendarData: IAppointment[];
+  themeType?: PaletteType;
+}
+
+const Calendar: React.FC<ICalendar> = ({ calendarData, themeType }) => {
+  const [data, setData] = React.useState<IAppointment[]>(calendarData);
   const [today, setToday] = React.useState<number>();
 
   React.useEffect(() => {
@@ -63,6 +69,12 @@ const Calendar: React.FC = () => {
   }, []);
 
   const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#55B57A",
+      },
+      type: themeType,
+    },
     overrides: {
       MuiTableCell: {
         root: {
@@ -99,6 +111,7 @@ const Calendar: React.FC = () => {
   return (
     <>
       <MuiThemeProvider theme={theme}>
+        <CssBaseline />
         <div className="container">
           <div className="navigationPanel">
             <img className="navImage" alt="navImage" src={nav} />
