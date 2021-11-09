@@ -28,20 +28,20 @@ import {
 import {
   IAppointment,
   IAddedAppointment,
-  weatherArray,
+  IWeather,
 } from "../demo-data/data";
 import moment from "moment";
 import ClaudIcon from "@material-ui/icons/CloudOutlined";
-import nav from "../assets/nav.png";
-import act from "../assets/act.png";
+
 import "./Calendar.css";
 
 interface ICalendar {
   calendarData: IAppointment[];
+  weatherData: IWeather[];
   themeType?: PaletteType;
 }
 
-const Calendar: React.FC<ICalendar> = ({ calendarData, themeType }) => {
+const Calendar: React.FC<ICalendar> = ({ calendarData, weatherData, themeType }) => {
   const [data, setData] = React.useState<IAppointment[]>(calendarData);
   const [today, setToday] = React.useState<number>();
 
@@ -109,108 +109,96 @@ const Calendar: React.FC<ICalendar> = ({ calendarData, themeType }) => {
 
   return (
     <>
-      <div className="container">
-        <div className="navigationPanel">
-          <img className="navImage" alt="navImage" src={nav} />
-        </div>
-        <div className="body">
-          <div className="weather">
-            <div
-              className={`${
-                themeType === "dark" ? "emptyCell dark" : "emptyCell light"
-              }`}
-            ></div>
-            <table className="weatherTable">
-              <tbody>
-                <tr className="weatherTableRow">
-                  {weatherArray.map((i) =>
-                    i.day === today ? (
-                      <td
-                        className={`${
-                          themeType === "dark"
-                            ? "weatherCellDark"
-                            : "weatherCell"
-                        }`}
-                      >
-                        <span
-                          className={`${
-                            themeType === "dark"
-                              ? "weatherContent dark"
-                              : "weatherContent light"
-                          }`}
-                        >
-                          {i.weather}{" "}
-                        </span>
-                        <ClaudIcon
-                          className={`${
-                            themeType === "dark" ? "cloudIconDark" : "cloudIcon"
-                          }`}
-                        />
-                      </td>
-                    ) : (
-                      <td
-                        className={`${
-                          themeType === "dark" ? "weatherCellDark" : "emptyTD"
-                        }`}
-                      ></td>
-                    )
-                  )}
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div className="calendar">
-            <MuiThemeProvider theme={theme}>
-              <Paper>
-                <Scheduler data={data} locale="se-SE">
-                  <EditingState onCommitChanges={commitChanges} />
-                  <IntegratedEditing />
-                  {themeType === "dark" ? (
-                    <WeekView
-                      cellDuration={90}
-                      startDayHour={6.5}
-                      endDayHour={19}
-                      excludedDays={[0, 6]}
+      <div className="weather">
+        <div
+          className={`${
+            themeType === "dark" ? "emptyCell dark" : "emptyCell light"
+          }`}
+        ></div>
+        <table className="weatherTable">
+          <tbody>
+            <tr className="weatherTableRow">
+              {weatherData.map((i) =>
+                i.day === today ? (
+                  <td
+                    className={`${
+                      themeType === "dark" ? "weatherCellDark" : "weatherCell"
+                    }`}
+                  >
+                    <span
+                      className={`${
+                        themeType === "dark"
+                          ? "weatherContent dark"
+                          : "weatherContent light"
+                      }`}
+                    >
+                      {i.weather}{" "}
+                    </span>
+                    <ClaudIcon
+                      className={`${
+                        themeType === "dark" ? "cloudIconDark" : "cloudIcon"
+                      }`}
                     />
-                  ) : (
-                    <WeekView
-                      timeScaleLayoutComponent={TimeScaleLayoutComponent}
-                      dayScaleEmptyCellComponent={DayScaleEmptyCellComponent}
-                      dayScaleCellComponent={DayScaleCellComponent}
-                      timeTableCellComponent={TimeTableCellComponent}
-                      cellDuration={90}
-                      startDayHour={6.5}
-                      endDayHour={19}
-                      excludedDays={[0, 6]}
-                    />
-                  )}
-                  <Appointments
-                    appointmentComponent={AppointmentComponent}
-                    appointmentContentComponent={AppointmentContentComponent}
-                  />
-                  <AppointmentTooltip showDeleteButton showOpenButton />
-                  <AppointmentForm />
-                  <DragDropProvider />
-                  <CurrentTimeIndicator
-                    indicatorComponent={IndicatorComponent}
-                    updateInterval={1000}
-                  />
-                </Scheduler>
-              </Paper>
-            </MuiThemeProvider>
+                  </td>
+                ) : (
+                  <td
+                    className={`${
+                      themeType === "dark" ? "weatherCellDark" : "emptyTD"
+                    }`}
+                  ></td>
+                )
+              )}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div className="calendar">
+        <MuiThemeProvider theme={theme}>
+          <Paper>
+            <Scheduler data={data} locale="se-SE">
+              <EditingState onCommitChanges={commitChanges} />
+              <IntegratedEditing />
+              {themeType === "dark" ? (
+                <WeekView
+                  cellDuration={90}
+                  startDayHour={6.5}
+                  endDayHour={19}
+                  excludedDays={[0, 6]}
+                />
+              ) : (
+                <WeekView
+                  timeScaleLayoutComponent={TimeScaleLayoutComponent}
+                  dayScaleEmptyCellComponent={DayScaleEmptyCellComponent}
+                  dayScaleCellComponent={DayScaleCellComponent}
+                  timeTableCellComponent={TimeTableCellComponent}
+                  cellDuration={90}
+                  startDayHour={6.5}
+                  endDayHour={19}
+                  excludedDays={[0, 6]}
+                />
+              )}
+              <Appointments
+                appointmentComponent={AppointmentComponent}
+                appointmentContentComponent={AppointmentContentComponent}
+              />
+              <AppointmentTooltip showDeleteButton showOpenButton />
+              <AppointmentForm />
+              <DragDropProvider />
+              <CurrentTimeIndicator
+                indicatorComponent={IndicatorComponent}
+                updateInterval={1000}
+              />
+            </Scheduler>
+          </Paper>
+        </MuiThemeProvider>
 
-            <div
-              className={`${
-                themeType === "dark"
-                  ? "calendarBottom dark"
-                  : "calendarBottom light"
-              }`}
-            ></div>
-          </div>
-          <div className="activities">
-            <img className="actImage" alt="actImage" src={act} />
-          </div>
-        </div>
+        <div
+          className={`${
+            themeType === "dark"
+              ? "calendarBottom dark"
+              : "calendarBottom light"
+          }`}
+        ></div>
       </div>
     </>
   );
