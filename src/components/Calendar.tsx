@@ -34,7 +34,6 @@ import moment from "moment";
 import ClaudIcon from "@material-ui/icons/CloudOutlined";
 import nav from "../assets/nav.png";
 import act from "../assets/act.png";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import "./Calendar.css";
 
 interface ICalendar {
@@ -110,7 +109,6 @@ const Calendar: React.FC<ICalendar> = ({ calendarData, themeType }) => {
 
   return (
     <>
-      <CssBaseline />
       <div className="container">
         <div className="navigationPanel">
           <img className="navImage" alt="navImage" src={nav} />
