@@ -51,12 +51,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+interface IComponentProps {
+  [x: string]: any;
+  className?: string | undefined;
+  style?: React.CSSProperties | undefined;
+  children?: React.ReactNode | any;
+}
 export const IndicatorComponent: React.FC<
-  CurrentTimeIndicator.IndicatorProps & {
-    [x: string]: any;
-    className?: string | undefined;
-    style?: React.CSSProperties | undefined;
-  }
+  CurrentTimeIndicator.IndicatorProps & IComponentProps
 > = ({ top, ...restProps }) => {
   const classes = useStyles({ top });
   return (
@@ -68,11 +70,7 @@ export const IndicatorComponent: React.FC<
 };
 
 export const DayScaleEmptyCellComponent: React.FC<
-  WeekView.DayScaleEmptyCellProps & {
-    [x: string]: any;
-    className?: string | undefined;
-    style?: React.CSSProperties | undefined;
-  }
+  WeekView.DayScaleEmptyCellProps & IComponentProps
 > = ({ ...restProps }) => {
   const classes = useStyles({});
   const week = moment().week() - 1;
@@ -90,12 +88,7 @@ export const DayScaleEmptyCellComponent: React.FC<
 };
 
 export const AppointmentComponent: React.FC<
-  Appointments.AppointmentProps & {
-    [x: string]: any;
-    className?: string | undefined;
-    style?: React.CSSProperties | undefined;
-    children: any;
-  }
+  Appointments.AppointmentProps & IComponentProps
 > = ({ children, ...restProps }) => {
   const classes = useStyles({});
   const startDate = +moment(children[1].props.data.startDate).format("HH");
@@ -123,11 +116,7 @@ export const AppointmentComponent: React.FC<
 };
 
 export const AppointmentContentComponent: React.FC<
-  Appointments.AppointmentContentProps & {
-    [x: string]: any;
-    className?: string | undefined;
-    style?: React.CSSProperties | undefined;
-  }
+  Appointments.AppointmentContentProps & IComponentProps
 > = ({ children, ...restProps }) => {
   const classes = useStyles({});
 
@@ -144,11 +133,7 @@ export const AppointmentContentComponent: React.FC<
 };
 
 export const TimeScaleLayoutComponent: React.FC<
-  WeekView.TimeScaleLayoutProps & {
-    [x: string]: any;
-    className?: string | undefined;
-    style?: React.CSSProperties | undefined;
-  }
+  WeekView.TimeScaleLayoutProps & IComponentProps
 > = ({ ...restProps }) => {
   const classes = useStyles({});
 
@@ -160,11 +145,7 @@ export const TimeScaleLayoutComponent: React.FC<
 };
 
 export const DayScaleCellComponent: React.FC<
-  WeekView.DayScaleCellProps & {
-    [x: string]: any;
-    className?: string | undefined;
-    style?: React.CSSProperties | undefined;
-  }
+  WeekView.DayScaleCellProps & IComponentProps
 > = ({ ...props }) => {
   const classes = useStyles({});
   const { startDate } = props;
