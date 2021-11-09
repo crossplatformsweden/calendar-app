@@ -110,50 +110,89 @@ const Calendar: React.FC<ICalendar> = ({ calendarData, themeType }) => {
 
   return (
     <>
-      <MuiThemeProvider theme={theme}>
-        <CssBaseline />
-        <div className="container">
-          <div className="navigationPanel">
-            <img className="navImage" alt="navImage" src={nav} />
-          </div>
-          <div className="body">
-            <div className="weather">
-              <div className="emptyCell"></div>
-              <table className="weatherTable">
-                <tbody>
-                  <tr className="weatherTableRow">
-                    {weatherArray.map((i) =>
-                      i.day === today ? (
-                        <td
-                          className="weatherCell"
-                          style={{ backgroundColor: "white" }}
+      <CssBaseline />
+      <div className="container">
+        <div className="navigationPanel">
+          <img className="navImage" alt="navImage" src={nav} />
+        </div>
+        <div className="body">
+          <div className="weather">
+            <div
+              className="emptyCell"
+              style={{
+                backgroundColor: `${
+                  themeType === "dark" ? "#424242" : "#efefef"
+                }`,
+              }}
+            ></div>
+            <table className="weatherTable">
+              <tbody>
+                <tr className="weatherTableRow">
+                  {weatherArray.map((i) =>
+                    i.day === today ? (
+                      <td
+                        className="weatherCell"
+                        style={{
+                          backgroundColor: `${
+                            themeType === "dark" ? "#424242" : "white"
+                          }`,
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: "12px",
+                            color: `${
+                              themeType === "dark" ? "#C3C3C3" : "black"
+                            }`,
+                          }}
                         >
-                          <span style={{ fontSize: "12px" }}>{i.weather} </span>
-                          <ClaudIcon />
-                        </td>
-                      ) : (
-                        <td></td>
-                      )
-                    )}
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div className="calendar">
+                          {i.weather}{" "}
+                        </span>
+                        <ClaudIcon
+                          style={{
+                            color: themeType === "dark" ? "#C3C3C3" : "black",
+                          }}
+                        />
+                      </td>
+                    ) : (
+                      <td
+                        style={{
+                          backgroundColor: `${
+                            themeType === "dark" ? "#424242" : "#efefef"
+                          }`,
+                        }}
+                      ></td>
+                    )
+                  )}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="calendar">
+            <MuiThemeProvider theme={theme}>
               <Paper>
                 <Scheduler data={data} locale="se-SE">
                   <EditingState onCommitChanges={commitChanges} />
                   <IntegratedEditing />
-                  <WeekView
-                    timeScaleLayoutComponent={TimeScaleLayoutComponent}
-                    dayScaleEmptyCellComponent={DayScaleEmptyCellComponent}
-                    dayScaleCellComponent={DayScaleCellComponent}
-                    timeTableCellComponent={TimeTableCellComponent}
-                    cellDuration={90}
-                    startDayHour={6.5}
-                    endDayHour={19}
-                    excludedDays={[0, 6]}
-                  />
+                  {themeType === "dark" ? (
+                    <WeekView
+                      cellDuration={90}
+                      startDayHour={6.5}
+                      endDayHour={19}
+                      excludedDays={[0, 6]}
+                    />
+                  ) : (
+                    <WeekView
+                      timeScaleLayoutComponent={TimeScaleLayoutComponent}
+                      dayScaleEmptyCellComponent={DayScaleEmptyCellComponent}
+                      dayScaleCellComponent={DayScaleCellComponent}
+                      timeTableCellComponent={TimeTableCellComponent}
+                      cellDuration={90}
+                      startDayHour={6.5}
+                      endDayHour={19}
+                      excludedDays={[0, 6]}
+                    />
+                  )}
                   <Appointments
                     appointmentComponent={AppointmentComponent}
                     appointmentContentComponent={AppointmentContentComponent}
@@ -167,15 +206,22 @@ const Calendar: React.FC<ICalendar> = ({ calendarData, themeType }) => {
                   />
                 </Scheduler>
               </Paper>
+            </MuiThemeProvider>
 
-              <div className="calendarBottom"></div>
-            </div>
-            <div className="activities">
-              <img className="actImage" alt="actImage" src={act} />
-            </div>
+            <div
+              style={{
+                backgroundColor: `${
+                  themeType === "dark" ? "#424242" : "#efefef"
+                }`,
+              }}
+              className="calendarBottom"
+            ></div>
+          </div>
+          <div className="activities">
+            <img className="actImage" alt="actImage" src={act} />
           </div>
         </div>
-      </MuiThemeProvider>
+      </div>
     </>
   );
 };
