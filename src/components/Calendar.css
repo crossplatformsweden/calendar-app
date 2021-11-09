@@ -32,9 +32,17 @@
 }
 
 .emptyCell {
-    width: 81px;
-    min-width: 81px;
-    border-top-left-radius: 25px;
+  width: 81px;
+  min-width: 81px;
+  border-top-left-radius: 25px;
+}
+
+.emptyCell.light {
+  background-color: #efefef;
+}
+
+.emptyCell.dark {
+  background-color: #424242;
 }
 
 .weatherTable {
@@ -51,11 +59,51 @@
   border-top-right-radius: 25px;
 }
 
+.weatherCell {
+  background-color: white;
+}
+
+.weatherCellDark {
+  background-color: #424242;
+}
+
+.weatherContent {
+  font-size: 12px;
+}
+
+.weatherContent.light {
+  color: black;
+}
+
+.weatherContent.dark {
+  color: #c3c3c3;
+}
+
+.cloudIcon {
+  color: black;
+}
+
+.cloudIconDark {
+  color: #c3c3c3;
+}
+
+.emptyTD {
+  background-color: #efefef;
+}
+
 .calendarBottom {
   width: 100%;
   height: 15px;
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
+}
+
+.calendarBottom.light {
+  background-color: #efefef;
+}
+
+.calendarBottom.dark {
+  background-color: #424242;
 }
 
 .activities {

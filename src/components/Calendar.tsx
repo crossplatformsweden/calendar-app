@@ -118,12 +118,9 @@ const Calendar: React.FC<ICalendar> = ({ calendarData, themeType }) => {
         <div className="body">
           <div className="weather">
             <div
-              className="emptyCell"
-              style={{
-                backgroundColor: `${
-                  themeType === "dark" ? "#424242" : "#efefef"
-                }`,
-              }}
+              className={`${
+                themeType === "dark" ? "emptyCell dark" : "emptyCell light"
+              }`}
             ></div>
             <table className="weatherTable">
               <tbody>
@@ -131,36 +128,32 @@ const Calendar: React.FC<ICalendar> = ({ calendarData, themeType }) => {
                   {weatherArray.map((i) =>
                     i.day === today ? (
                       <td
-                        className="weatherCell"
-                        style={{
-                          backgroundColor: `${
-                            themeType === "dark" ? "#424242" : "white"
-                          }`,
-                        }}
+                        className={`${
+                          themeType === "dark"
+                            ? "weatherCellDark"
+                            : "weatherCell"
+                        }`}
                       >
                         <span
-                          style={{
-                            fontSize: "12px",
-                            color: `${
-                              themeType === "dark" ? "#C3C3C3" : "black"
-                            }`,
-                          }}
+                          className={`${
+                            themeType === "dark"
+                              ? "weatherContent dark"
+                              : "weatherContent light"
+                          }`}
                         >
                           {i.weather}{" "}
                         </span>
                         <ClaudIcon
-                          style={{
-                            color: themeType === "dark" ? "#C3C3C3" : "black",
-                          }}
+                          className={`${
+                            themeType === "dark" ? "cloudIconDark" : "cloudIcon"
+                          }`}
                         />
                       </td>
                     ) : (
                       <td
-                        style={{
-                          backgroundColor: `${
-                            themeType === "dark" ? "#424242" : "#efefef"
-                          }`,
-                        }}
+                        className={`${
+                          themeType === "dark" ? "weatherCellDark" : "emptyTD"
+                        }`}
                       ></td>
                     )
                   )}
@@ -209,12 +202,11 @@ const Calendar: React.FC<ICalendar> = ({ calendarData, themeType }) => {
             </MuiThemeProvider>
 
             <div
-              style={{
-                backgroundColor: `${
-                  themeType === "dark" ? "#424242" : "#efefef"
-                }`,
-              }}
-              className="calendarBottom"
+              className={`${
+                themeType === "dark"
+                  ? "calendarBottom dark"
+                  : "calendarBottom light"
+              }`}
             ></div>
           </div>
           <div className="activities">
