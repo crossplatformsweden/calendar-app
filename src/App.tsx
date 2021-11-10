@@ -16,7 +16,7 @@ const App: React.FC = () => {
           <Calendar
             calendarData={appointments}
             weatherData={weatherArray}
-            themeType="light"
+            themeType="dark"
           />
           <div className="activities">
             <img className="actImage" alt="actImage" src={act} />

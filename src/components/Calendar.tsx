@@ -26,6 +26,7 @@ import {
   TimeTableCellComponent,
   TimeTableCellComponentDark,
   DayScaleCellComponentDark,
+  DayScaleEmptyCellComponentDark,
 } from "./CalendarCustomComponents";
 import { IAppointment, IAddedAppointment, IWeather } from "../demo-data/data";
 import moment from "moment";
@@ -158,12 +159,13 @@ const Calendar: React.FC<ICalendar> = ({
               <IntegratedEditing />
               {themeType === "dark" ? (
                 <WeekView
+                  dayScaleCellComponent={DayScaleCellComponentDark}
+                  dayScaleEmptyCellComponent={DayScaleEmptyCellComponentDark}
+                  timeTableCellComponent={TimeTableCellComponentDark}
                   cellDuration={90}
                   startDayHour={6.5}
                   endDayHour={19}
                   excludedDays={[0, 6]}
-                  dayScaleCellComponent={DayScaleCellComponentDark}
-                  timeTableCellComponent={TimeTableCellComponentDark}
                 />
               ) : (
                 <WeekView
